@@ -1,5 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+import { listenerCount } from 'process';
 import * as vscode from 'vscode';
 
 // This method is called when your extension is activated
@@ -13,14 +14,66 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('markdown-shortcuts.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Markdown Shortcuts!');
-	});
+	let bold_cmd = vscode.commands.registerCommand('markdown-shortcuts.bold', textBold);
+	let italic_cmd = vscode.commands.registerCommand('markdown-shortcuts.italic', textItalic);
+	
+	// Subscribe commands
+	context.subscriptions.push(bold_cmd);
+	context.subscriptions.push(italic_cmd);
+}
 
-	context.subscriptions.push(disposable);
+// Text Italic
+function textItalic(){
+	const editor = vscode.window.activeTextEditor;
+
+        if (editor) {
+            // Get cursor selection
+            var selection = editor.selection;
+
+            // Get the text into the selection
+            var selectedText = editor.document.getText(selection);
+			
+			// Add italic style if text is normal, otherwise, set text back to normal
+			if(selectedText.charAt(2) !== '*' && selectedText.charAt(selectedText.length-3) !== '*' && selectedText.substring(0,2) === "**" && selectedText.substring(selectedText.length-2,selectedText.length) === "**" || !selectedText.startsWith("*") && !selectedText.endsWith("*"))
+				selectedText = "*" + selectedText + "*";
+			else if(selectedText.substring(0,3) === "***" && selectedText.substring(selectedText.length-3,selectedText.length) === "***")
+				selectedText = selectedText.substring(1,selectedText.length-1)
+			else	
+				selectedText = selectedText.substring(1,selectedText.length-1);
+
+            // Replace the selection with a new string
+            editor.edit(editBuilder => {
+                editBuilder.replace(selection, selectedText);
+            });
+        }
+}
+
+// Text Bold
+function textBold(){
+	const editor = vscode.window.activeTextEditor;
+
+        if (editor) {
+            // Get cursor selection
+            var selection = editor.selection;
+
+            // Get the text into the selection
+            var selectedText = editor.document.getText(selection);
+			
+			// Add bold style if text is normal, otherwise, set text back to normal
+			if(selectedText.startsWith("**") && selectedText.endsWith("**")){
+				selectedText = selectedText.substring(2, selectedText.length-2);
+			}else{
+				selectedText = "**" + selectedText + "**";
+			}
+
+            // Replace the selection with a new string
+            editor.edit(editBuilder => {
+                editBuilder.replace(selection, selectedText);
+            });
+        }
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate(context: vscode.ExtensionContext) {
+	vscode.window.showInformationMessage("'markdown-shortcuts' has been deactivated!");
+}

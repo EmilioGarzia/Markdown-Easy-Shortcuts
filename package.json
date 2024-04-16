@@ -14,8 +14,28 @@
   "contributes": {
     "commands": [
       {
-        "command": "markdown-shortcuts.helloWorld",
-        "title": "Hello World"
+        "command": "markdown-shortcuts.bold",
+        "title": "Markdown Shortcuts: Bold Text"
+      },
+
+      {
+        "command": "markdown-shortcuts.italic",
+        "title": "Markdown Shortcuts: Italic Text"
+      }
+    ],
+
+    "keybindings":[
+      {
+        "command": "markdown-shortcuts.bold",
+        "key": "ctrl+b",
+        "mac": "cmd+b",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "markdown-shortcuts.italic",
+        "key": "ctrl+i",
+        "mac": "cmd+i",
+        "when": "editorTextFocus"
       }
     ]
   },
