@@ -7,7 +7,8 @@
     "vscode": "^1.88.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Snippets"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
@@ -23,7 +24,12 @@
         "title": "Markdown Shortcuts: Italic Text"
       }
     ],
-
+    "snippets": [
+      {
+        "language": "markdown",
+        "path": "./snippets/snippets.code-snippets"
+      }
+    ],
     "keybindings":[
       {
         "command": "markdown-shortcuts.bold",

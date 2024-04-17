@@ -1,5 +1,8 @@
+
+
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+import { File } from 'buffer';
 import * as vscode from 'vscode';
 
 // This method is called when your extension is activated
@@ -49,7 +52,9 @@ function textItalic(){
 
 // Text Bold
 function textBold(){
+	const config = vscode.workspace.getConfiguration(); // Accesso alla configurazione globale
 	const editor = vscode.window.activeTextEditor;
+	config.update('adelio.giovanni', 2, true)
 
         if (editor) {
             // Get cursor selection

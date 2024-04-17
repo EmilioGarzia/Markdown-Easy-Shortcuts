@@ -18,6 +18,8 @@ If you have any requirements or dependencies, add a section describing those and
 
 ## Extension Settings
 
+
+
 Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
 
 For example:
@@ -36,6 +38,7 @@ Calling out known issues can help limit users opening duplicate issues against y
 Users appreciate release notes as you update your extension.
 
 ### 1.0.0
+
 
 Initial release of ...
 
