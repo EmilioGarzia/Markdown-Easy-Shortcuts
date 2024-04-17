@@ -10,7 +10,7 @@
     "Other",
     "Snippets"
   ],
-  "activationEvents": [],
+  "activationEvents": ["onLanguage:markdown"],
   "main": "./out/extension.js",
   "contributes": {
     "configurationDefaults": {
@@ -23,6 +23,11 @@
         }
       }
     },
+    "languages": [{
+      "id": "markdown",
+      "aliases": ["Markdown", "md"],
+      "extensions": [".md", ".markdown"]
+    }],
     "commands": [
       {
         "command": "markdown-shortcuts.bold",
