@@ -1,12 +1,41 @@
 {
-    "ciao": {
-        "prefix": "ciao",
-        "body": "Ciao!",
-        "description": "Saluta con 'Ciao!'"
+    "docs": {
+        "prefix": "docs",
+        "body": [
+            "# Project Title",
+            "",
+            "# Description",
+            "",
+            "# Dependencies",
+            "",
+            "# How to install",
+            "",
+            "# How to run",
+            "",
+            "# Used technologies",
+            "",
+            "# Known issues",
+            "",
+            "# Demo",
+            "",
+            "# Author",
+            "",
+            "## Contributors",
+            "",
+            "## Contacts",
+            "",
+            "# License",
+            ""
+        ],
+        "description": "README file template'"
     },
-    "ciro": {
-        "prefix": "ciro",
-        "body": "Ciao Ciro!",
-        "description": "Saluta Ciro con 'Ciao Ciro!'"
-    }
+    "code": {
+        "prefix": "code",
+        "body": [
+            "```",
+            "",
+            "```"
+        ],
+        "description": "Insert your block of code"
+    },
 }
