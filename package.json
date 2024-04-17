@@ -10,7 +10,9 @@
     "Other",
     "Snippets"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -18,7 +20,6 @@
         "command": "markdown-shortcuts.bold",
         "title": "Markdown Shortcuts: Bold Text"
       },
-
       {
         "command": "markdown-shortcuts.italic",
         "title": "Markdown Shortcuts: Italic Text"
@@ -30,7 +31,7 @@
         "path": "./snippets/snippets.code-snippets"
       }
     ],
-    "keybindings":[
+    "keybindings": [
       {
         "command": "markdown-shortcuts.bold",
         "key": "ctrl+b",
@@ -43,7 +44,16 @@
         "mac": "cmd+i",
         "when": "editorTextFocus"
       }
-    ]
+    ],
+    "configuration": {
+      "[markdown]": {
+        "editor.quickSuggestions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Abilita suggerimenti rapidi per Markdown"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
