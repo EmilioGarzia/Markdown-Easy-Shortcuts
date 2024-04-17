@@ -1,0 +1,12 @@
+{
+    "ciao": {
+        "prefix": "ciao",
+        "body": "Ciao!",
+        "description": "Saluta con 'Ciao!'"
+    },
+    "ciro": {
+        "prefix": "ciro",
+        "body": "Ciao Ciro!",
+        "description": "Saluta Ciro con 'Ciao Ciro!'"
+    }
+}
