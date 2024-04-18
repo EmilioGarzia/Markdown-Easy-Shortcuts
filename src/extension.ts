@@ -1,5 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+import { deepStrictEqual } from 'assert';
 import * as vscode from 'vscode';
 
 // defines the languages where the commands can be execute
@@ -18,10 +19,38 @@ export function activate(context: vscode.ExtensionContext) {
 	let bold_cmd = vscode.commands.registerCommand('markdown-shortcuts.bold', textBold);				// Bold
 	let italic_cmd = vscode.commands.registerCommand('markdown-shortcuts.italic', textItalic);			// Italic
 	vscode.workspace.onDidChangeTextDocument(automatic_list_cmd);										// Automatic List 
+	
+	// substring replaceable
+	vscode.workspace.onDidChangeTextDocument(right_arrows_replacer);									// Right Arrow HTML code 
+	vscode.workspace.onDidChangeTextDocument(left_arrows_replacer);										// Left Arrow HTML code
 
 	// Subscribe commands
 	context.subscriptions.push(bold_cmd);
 	context.subscriptions.push(italic_cmd);
+}
+
+// Right arrow replacer
+function right_arrows_replacer(event: vscode.TextDocumentChangeEvent){ replacer(event, "->", "&rarr;") }
+
+// Left arrow replacer
+function left_arrows_replacer(event: vscode.TextDocumentChangeEvent){ replacer(event, "<-", "&larr;") }
+
+// This function provide to replace a specified substring in a line editor with another substring
+function replacer(event: vscode.TextDocumentChangeEvent, source: string, destination: string){
+	let editor = vscode.window.activeTextEditor;
+
+	if(editor){
+		let document = editor.document;
+		let text = document.getText()
+
+		if(text.includes(source)){
+			let newText = text.replace(source, destination)
+			let fullRange = new vscode.Range(document.positionAt(0), document.positionAt(text.length))
+			editor.edit(editBuilder =>{
+				editBuilder.replace(fullRange, newText);
+			});
+		}
+	}	
 }
 
 // Automatic list 

@@ -38,4 +38,12 @@
         ],
         "description": "Insert your block of code"
     },
+    "table": {
+        "prefix": "table",
+        "body": [
+        "| Title 1 | Title 2 | Title 3 |",
+        "|:-:|:-:|:-:|",
+        "| item1 | item2 | item3 |"
+    ]
+    }
 }
