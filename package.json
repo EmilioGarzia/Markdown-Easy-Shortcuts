@@ -37,6 +37,10 @@
       {
         "command": "markdown-shortcuts.italic",
         "title": "Markdown Shortcuts: Italic Text"
+      },
+      {
+        "command": "markdown-shortcuts.toc",
+        "title": "Markdown Shortcuts: Table of contents"
       }
     ],
     "snippets": [
@@ -56,6 +60,12 @@
         "command": "markdown-shortcuts.italic",
         "key": "ctrl+i",
         "mac": "cmd+i",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "markdown-shortcuts.toc",
+        "key": "ctrl+t",
+        "mac": "cmd+t",
         "when": "editorTextFocus"
       }
     ]

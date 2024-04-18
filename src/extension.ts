@@ -1,6 +1,5 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { deepStrictEqual } from 'assert';
 import * as vscode from 'vscode';
 
 // defines the languages where the commands can be execute
@@ -18,6 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	let bold_cmd = vscode.commands.registerCommand('markdown-shortcuts.bold', textBold);				// Bold
 	let italic_cmd = vscode.commands.registerCommand('markdown-shortcuts.italic', textItalic);			// Italic
+	let toc_cmd = vscode.commands.registerCommand('markdown-shortcuts.toc', toc_generator)
 	vscode.workspace.onDidChangeTextDocument(automatic_list_cmd);										// Automatic List 
 	
 	// substring replaceable
@@ -27,6 +27,62 @@ export function activate(context: vscode.ExtensionContext) {
 	// Subscribe commands
 	context.subscriptions.push(bold_cmd);
 	context.subscriptions.push(italic_cmd);
+}
+
+// Table of content generator
+function toc_generator(event: vscode.TextDocumentChangeEvent){
+	let editor = vscode.window.activeTextEditor
+	let toc: string = "**Table of contents**\n"
+
+	if(have_toc()){
+		if(editor){		
+			let document = editor.document
+			for(let i=0; i<document.lineCount; i++){
+		
+				let header = document.lineAt(i).text.split(' ')?.at(0)?.length
+				let header_content = document.lineAt(i)?.text?.slice(header).trim()
+
+				switch (header) {
+					case 1:
+						toc += "- [" + header_content + "](#" + header_content.replace(" ","-").toLowerCase() + ")\n"
+						break;
+					
+					case 2:
+						toc += "\t- [" + header_content + "](#" + header_content.replace(" ","-").toLowerCase() + ")\n"
+						break;
+				
+					default:
+						break;
+				}	
+			}
+
+			editor.edit(editBuilder =>{
+				editBuilder.insert(new vscode.Position(0,0), toc+"\n\n")
+			});
+
+			vscode.window.showInformationMessage("Table of contents has been created!")
+		}
+	}else
+		vscode.window.showWarningMessage("Your document already has a table of contents!")
+}
+
+// check if the document already has a toc
+function have_toc():boolean{
+	let editor = vscode.window.activeTextEditor;
+	
+	if(editor){
+		let document = editor.document
+
+		for(let i=0; i<document.lineCount; i++){
+			if(document.lineAt(i).text.includes("**Table of contents**")){
+				console.log("Sono nell'IF")
+				console.log(document.lineAt(i).text)
+
+				return true
+			}	
+		}
+	}
+	return false
 }
 
 // Right arrow replacer
