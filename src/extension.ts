@@ -2,6 +2,9 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
+// defines the languages where the commands can be execute
+const languages = ["markdown"];
+
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -23,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 // Automatic list 
 function automatic_list_cmd (event: vscode.TextDocumentChangeEvent){
-	if(check_markdown_document()){
+	if(check_doc_extension(languages)){
 		// Check if "ENTER" is typed
 		if(event.contentChanges.at(0)?.text === "\r\n"){
 			
@@ -66,7 +69,7 @@ function automatic_list_cmd (event: vscode.TextDocumentChangeEvent){
 
 // Text Italic
 function textItalic(){
-	if(check_markdown_document()){
+	if(check_doc_extension(languages)){
 		const editor = vscode.window.activeTextEditor;
 
 			if (editor) {
@@ -94,7 +97,7 @@ function textItalic(){
 
 // Text Bold
 function textBold(){
-	if(check_markdown_document()){
+	if(check_doc_extension(languages)){
 		const config = vscode.workspace.getConfiguration(); // Accesso alla configurazione globale
 		const editor = vscode.window.activeTextEditor;
 		config.update('adelio.giovanni', 2, true)
@@ -121,8 +124,12 @@ function textBold(){
 	}
 }	
 
-// check if we are into a markdown document
-function check_markdown_document(){ if(vscode.window.activeTextEditor?.document.languageId === 'markdown') return true; return false }
+// check if we are into specified compatible documents
+function check_doc_extension(language: any[]){ 
+	if(language.includes(vscode.window.activeTextEditor?.document.languageId))
+		return true;
+	return false
+}
 
 // This method is called when your extension is deactivated
 export function deactivate(context: vscode.ExtensionContext) {
