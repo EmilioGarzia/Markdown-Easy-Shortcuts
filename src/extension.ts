@@ -17,6 +17,8 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	let bold_cmd = vscode.commands.registerCommand('markdown-shortcuts.bold', textBold);				// Bold
 	let italic_cmd = vscode.commands.registerCommand('markdown-shortcuts.italic', textItalic);			// Italic
+
+
 	let toc_cmd = vscode.commands.registerCommand('markdown-shortcuts.toc', toc_generator)
 	vscode.workspace.onDidChangeTextDocument(automatic_list_cmd);										// Automatic List 
 	
@@ -29,39 +31,80 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(italic_cmd);
 }
 
+
 // Table of content generator
-function toc_generator(event: vscode.TextDocumentChangeEvent){
+function toc_generator(){
 	let editor = vscode.window.activeTextEditor
 	let toc: string = "**Table of contents**\n"
+	let depth : any
 
-	if(have_toc()){
-		if(editor){		
-			let document = editor.document
-			for(let i=0; i<document.lineCount; i++){
-		
-				let header = document.lineAt(i).text.split(' ')?.at(0)?.length
-				let header_content = document.lineAt(i)?.text?.slice(header).trim()
-
-				switch (header) {
-					case 1:
-						toc += "- [" + header_content + "](#" + header_content.replace(" ","-").toLowerCase() + ")\n"
-						break;
-					
-					case 2:
-						toc += "\t- [" + header_content + "](#" + header_content.replace(" ","-").toLowerCase() + ")\n"
-						break;
-				
-					default:
-						break;
-				}	
+	if(!have_toc()){
+		vscode.window.showInputBox({ prompt: 'Insert Table of contents depth [1-6]:' }).then(input => {
+			if (input) {
+				depth = parseInt(input)
+				if(depth > 6 || depth < 1){
+					depth = 3
+					vscode.window.showWarningMessage('Input not valid.\nDefault depth: 3');
+				}
+			} else{
+				depth = 3
+				vscode.window.showWarningMessage('Input not valid.\nDefault depth: 3');
 			}
 
-			editor.edit(editBuilder =>{
-				editBuilder.insert(new vscode.Position(0,0), toc+"\n\n")
-			});
+			if(editor){		
+				let document = editor.document
+				for(let i=0; i<document.lineCount; i++){
+			
+					let header = document.lineAt(i).text.split(' ')?.at(0)
+					let header_content = document.lineAt(i)?.text?.slice(header?.length).trim()
+					if(header?.startsWith("#")){
 
-			vscode.window.showInformationMessage("Table of contents has been created!")
-		}
+							
+						switch (header.length) {
+							case 1:	
+								toc += "- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+								break;
+							
+							case 2:
+								if(depth > 1)
+									toc += "\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+								break;
+							
+							case 3:
+								if(depth > 2)
+									toc += "\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+								break;
+							
+							case 4:
+								if(depth > 3)
+									toc += "\t\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+								break;
+	
+							case 5:
+								if(depth > 4)
+									toc += "\t\t\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+								break;
+							
+							case 6:
+								if(depth > 5)
+									toc += "\t\t\t\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+								break;
+						
+							default:
+								break;
+						}
+					}	
+				}
+	
+				editor.edit(editBuilder =>{
+					editBuilder.insert(new vscode.Position(0,0), toc+"\n\n")
+				});
+	
+				vscode.window.showInformationMessage("Table of contents has been created!")
+			}
+		});
+
+		
 	}else
 		vscode.window.showWarningMessage("Your document already has a table of contents!")
 }
@@ -86,13 +129,13 @@ function have_toc():boolean{
 }
 
 // Right arrow replacer
-function right_arrows_replacer(event: vscode.TextDocumentChangeEvent){ replacer(event, "->", "&rarr;") }
+function right_arrows_replacer(event: vscode.TextDocumentChangeEvent){ replacer("->", "&rarr;") }
 
 // Left arrow replacer
-function left_arrows_replacer(event: vscode.TextDocumentChangeEvent){ replacer(event, "<-", "&larr;") }
+function left_arrows_replacer(event: vscode.TextDocumentChangeEvent){ replacer("<-", "&larr;") }
 
 // This function provide to replace a specified substring in a line editor with another substring
-function replacer(event: vscode.TextDocumentChangeEvent, source: string, destination: string){
+function replacer(source: string, destination: string){
 	let editor = vscode.window.activeTextEditor;
 
 	if(editor){
