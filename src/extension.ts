@@ -44,6 +44,8 @@ function toc_generator(){
 		vscode.window.showInputBox({ prompt: 'Insert Table of contents depth [1-6]:' }).then(input => {
 			if (input) {
 				depth = parseInt(input)
+				if(isNaN(depth))
+					depth = 3
 				if(depth > 6 || depth < 1){
 					depth = 3
 					vscode.window.showWarningMessage('Input not valid.\nDefault depth: 3');
@@ -52,6 +54,7 @@ function toc_generator(){
 				depth = 3
 				vscode.window.showWarningMessage('Input not valid.\nDefault depth: 3');
 			}
+			
 
 			if(editor){		
 				let document = editor.document
@@ -120,9 +123,6 @@ function have_toc():boolean{
 
 		for(let i=0; i<document.lineCount; i++){
 			if(document.lineAt(i).text.includes("**Table of contents**")){
-				console.log("Sono nell'IF")
-				console.log(document.lineAt(i).text)
-
 				return true
 			}	
 		}
