@@ -60,11 +60,11 @@ function toc_generator(){
 				let document = editor.document
 				for(let i=0; i<document.lineCount; i++){
 			
-					let header = document.lineAt(i).text.split(' ')?.at(0)
-					let header_content = document.lineAt(i)?.text?.slice(header?.length).trim()
+					let header = document.lineAt(i).text.trim().split(' ')?.at(0); 
+        			let header_content = document.lineAt(i)?.text?.slice(header?.length).trim();
 					if(header?.startsWith("#")){
-
-							
+						console.log("header: " + header)
+						console.log("h_ length: " + header.length)
 						switch (header.length) {
 							case 1:	
 								toc += "- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
@@ -91,6 +91,7 @@ function toc_generator(){
 								break;
 							
 							case 6:
+								console.log("Case 6")
 								if(depth > 5)
 									toc += "\t\t\t\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
 								break;
