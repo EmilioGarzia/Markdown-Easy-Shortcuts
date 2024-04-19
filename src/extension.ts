@@ -1,9 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import os from 'node:os'
 
 // defines the languages where the commands can be execute
 const languages = ["markdown"];
+const user_system = os.platform()
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -155,8 +157,14 @@ function replacer(source: string, destination: string){
 // Automatic list 
 function automatic_list_cmd (event: vscode.TextDocumentChangeEvent){
 	if(check_doc_extension(languages)){
+		let condition_to_check;
+		if(user_system === 'darwin' || user_system === 'linux')
+			condition_to_check = "\n"
+		else
+			condition_to_check = "\r\n"
+			
 		// Check if "ENTER" is typed
-		if(event.contentChanges.at(0)?.text === "\r\n"){
+		if(event.contentChanges.at(0)?.text === condition_to_check){
 			
 			// Get the editor context
 			let editor = vscode.window.activeTextEditor;
