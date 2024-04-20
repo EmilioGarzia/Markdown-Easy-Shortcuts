@@ -1,9 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import os from 'node:os'
 
 // defines the languages where the commands can be execute
 const languages = ["markdown"];
+
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -17,8 +19,6 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	let bold_cmd = vscode.commands.registerCommand('markdown-shortcuts.bold', textBold);				// Bold
 	let italic_cmd = vscode.commands.registerCommand('markdown-shortcuts.italic', textItalic);			// Italic
-
-
 	let toc_cmd = vscode.commands.registerCommand('markdown-shortcuts.toc', toc_generator)
 	vscode.workspace.onDidChangeTextDocument(automatic_list_cmd);										// Automatic List 
 	
@@ -29,7 +29,9 @@ export function activate(context: vscode.ExtensionContext) {
 	// Subscribe commands
 	context.subscriptions.push(bold_cmd);
 	context.subscriptions.push(italic_cmd);
+	context.subscriptions.push(toc_cmd)
 }
+
 
 
 // Table of content generator
@@ -42,6 +44,8 @@ function toc_generator(){
 		vscode.window.showInputBox({ prompt: 'Insert Table of contents depth [1-6]:' }).then(input => {
 			if (input) {
 				depth = parseInt(input)
+				if(isNaN(depth))
+					depth = 3
 				if(depth > 6 || depth < 1){
 					depth = 3
 					vscode.window.showWarningMessage('Input not valid.\nDefault depth: 3');
@@ -50,16 +54,17 @@ function toc_generator(){
 				depth = 3
 				vscode.window.showWarningMessage('Input not valid.\nDefault depth: 3');
 			}
+			
 
 			if(editor){		
 				let document = editor.document
 				for(let i=0; i<document.lineCount; i++){
 			
-					let header = document.lineAt(i).text.split(' ')?.at(0)
-					let header_content = document.lineAt(i)?.text?.slice(header?.length).trim()
+					let header = document.lineAt(i).text.trim().split(' ')?.at(0); 
+        			let header_content = document.lineAt(i)?.text?.slice(header?.length).trim();
 					if(header?.startsWith("#")){
-
-							
+						console.log("header: " + header)
+						console.log("h_ length: " + header.length)
 						switch (header.length) {
 							case 1:	
 								toc += "- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
@@ -86,6 +91,7 @@ function toc_generator(){
 								break;
 							
 							case 6:
+								console.log("Case 6")
 								if(depth > 5)
 									toc += "\t\t\t\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
 								break;
@@ -118,9 +124,6 @@ function have_toc():boolean{
 
 		for(let i=0; i<document.lineCount; i++){
 			if(document.lineAt(i).text.includes("**Table of contents**")){
-				console.log("Sono nell'IF")
-				console.log(document.lineAt(i).text)
-
 				return true
 			}	
 		}
@@ -136,18 +139,20 @@ function left_arrows_replacer(event: vscode.TextDocumentChangeEvent){ replacer("
 
 // This function provide to replace a specified substring in a line editor with another substring
 function replacer(source: string, destination: string){
+	if(check_doc_extension(languages)){
 	let editor = vscode.window.activeTextEditor;
 
-	if(editor){
-		let document = editor.document;
-		let text = document.getText()
+		if(editor){
+			let document = editor.document;
+			let text = document.getText()
 
-		if(text.includes(source)){
-			let newText = text.replace(source, destination)
-			let fullRange = new vscode.Range(document.positionAt(0), document.positionAt(text.length))
-			editor.edit(editBuilder =>{
-				editBuilder.replace(fullRange, newText);
-			});
+			if(text.includes(source)){
+				let newText = text.replace(source, destination)
+				let fullRange = new vscode.Range(document.positionAt(0), document.positionAt(text.length))
+				editor.edit(editBuilder =>{
+					editBuilder.replace(fullRange, newText);
+				});
+			}
 		}
 	}	
 }
@@ -156,7 +161,7 @@ function replacer(source: string, destination: string){
 function automatic_list_cmd (event: vscode.TextDocumentChangeEvent){
 	if(check_doc_extension(languages)){
 		// Check if "ENTER" is typed
-		if(event.contentChanges.at(0)?.text === "\r\n"){
+		if(event.contentChanges.at(0)?.text === os.EOL){
 			
 			// Get the editor context
 			let editor = vscode.window.activeTextEditor;
