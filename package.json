@@ -17,6 +17,7 @@
   "contributes": {
     "configurationDefaults": {
       "[markdown]": {
+        "editor.suggest.showWords":false,
         "editor.wordWrap": "on",
         "editor.quickSuggestions": {
           "comments": "on",

@@ -139,18 +139,20 @@ function left_arrows_replacer(event: vscode.TextDocumentChangeEvent){ replacer("
 
 // This function provide to replace a specified substring in a line editor with another substring
 function replacer(source: string, destination: string){
+	if(check_doc_extension(languages)){
 	let editor = vscode.window.activeTextEditor;
 
-	if(editor){
-		let document = editor.document;
-		let text = document.getText()
+		if(editor){
+			let document = editor.document;
+			let text = document.getText()
 
-		if(text.includes(source)){
-			let newText = text.replace(source, destination)
-			let fullRange = new vscode.Range(document.positionAt(0), document.positionAt(text.length))
-			editor.edit(editBuilder =>{
-				editBuilder.replace(fullRange, newText);
-			});
+			if(text.includes(source)){
+				let newText = text.replace(source, destination)
+				let fullRange = new vscode.Range(document.positionAt(0), document.positionAt(text.length))
+				editor.edit(editBuilder =>{
+					editBuilder.replace(fullRange, newText);
+				});
+			}
 		}
 	}	
 }
