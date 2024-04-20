@@ -19,8 +19,6 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	let bold_cmd = vscode.commands.registerCommand('markdown-shortcuts.bold', textBold);				// Bold
 	let italic_cmd = vscode.commands.registerCommand('markdown-shortcuts.italic', textItalic);			// Italic
-
-
 	let toc_cmd = vscode.commands.registerCommand('markdown-shortcuts.toc', toc_generator)
 	vscode.workspace.onDidChangeTextDocument(automatic_list_cmd);										// Automatic List 
 	
@@ -31,7 +29,9 @@ export function activate(context: vscode.ExtensionContext) {
 	// Subscribe commands
 	context.subscriptions.push(bold_cmd);
 	context.subscriptions.push(italic_cmd);
+	context.subscriptions.push(toc_cmd)
 }
+
 
 
 // Table of content generator
