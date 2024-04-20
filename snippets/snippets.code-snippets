@@ -45,6 +45,16 @@
         "|:-:|:-:|:-:|",
         "| item1 | item2 | item3 |"
     ],
+    "description": "Create a basic table"
     },
+    "todo": {
+        "prefix": "todo",
+        "body": [
+            "- [ ] ",
+            "- [ ] ",
+            "- [ ] "
+        ],
+        "description": "Create a TODO list with three elements"
+    }
     
 }
