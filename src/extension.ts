@@ -2,6 +2,9 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import os from 'node:os'
+import { promisify } from 'util';
+import { count } from 'node:console';
+const setTimeoutPromise = promisify(setTimeout);
 
 // defines the languages where the commands can be execute
 const languages = ["markdown"];
@@ -23,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let bold_cmd = vscode.commands.registerCommand('markdown-shortcuts.bold', textBold);				// Bold
 	let italic_cmd = vscode.commands.registerCommand('markdown-shortcuts.italic', textItalic);			// Italic
 	let toc_cmd = vscode.commands.registerCommand('markdown-shortcuts.toc', toc_maker)					// Table of content generator
-	let toc_eraser_cmd = vscode.commands.registerCommand('markdown-shortcuts.delete_toc', toc_eraser)	// Table of content eraser
+	let toc_updater_cmd = vscode.commands.registerCommand('markdown-shortcuts.delete_toc', toc_updater)	// Table of content eraser
 
 	vscode.workspace.onDidChangeTextDocument(automatic_list_cmd);										// Automatic List 
 	vscode.workspace.onDidSaveTextDocument(toc_generator_on_save)
@@ -32,12 +35,12 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(bold_cmd);
 	context.subscriptions.push(italic_cmd);
 	context.subscriptions.push(toc_cmd);
-	context.subscriptions.push(toc_eraser_cmd);
+	context.subscriptions.push(toc_updater_cmd);
 }
 
 
 // Table of content maker
-function toc_maker(){
+async function toc_maker(){
 	let editor = vscode.window.activeTextEditor
 	
 	if(editor){
@@ -57,21 +60,16 @@ function toc_maker(){
 				}
 				toc_generator();
 			});
-		}else{
-			toc_eraser()
-			toc_generator();
-			console.log(depth)
-		}
+		}else
+			toc_updater()
 	}
 
 	vscode.window.showInformationMessage("Table of contents has been created!")
 }
 
 function toc_generator_on_save(){
-	if(have_toc()){
-		toc_eraser()
-		toc_generator()
-	}
+	if(have_toc())
+		toc_updater()
 }
 
 // Get range of the lines that contains table of contents
@@ -94,13 +92,16 @@ function toc_range(){
 }
 
 // delete the table contents from the document [DA REVISIONARE]
-function toc_eraser(){
+async function toc_updater(){
 	let editor = vscode.window.activeTextEditor
 	let range = toc_range()
 
-	if(editor){
+	if(editor && range[0] >= 0 && range[1] >= 0){
 		editor.edit(editBuilder =>{
-			editBuilder.delete(new vscode.Range(new vscode.Position(range[0],0), new vscode.Position(range[1]+1, 0)))
+			editBuilder.delete(new vscode.Range(new vscode.Position(range[0],0), new vscode.Position(range[1]+2, 0)))
+		}).then(()=>{
+			if(have_toc())
+				toc_generator()
 		})
 	}
 }
@@ -109,8 +110,8 @@ function toc_eraser(){
 function toc_generator(){
 	let editor = vscode.window.activeTextEditor
 	let toc: string = "**Table of contents**\n"
-	let start_marker: string = "<!-- toc start -->\n"
-	let end_marker: string = "<!-- toc end -->"
+	let start_marker: string = "<!-- toc start: " + depth + " [do not erase this comment] -->\n"
+	let end_marker: string = "<!-- toc end [do not erase this comment] -->"
 	
 	if(editor){		
 		let document = editor.document
@@ -170,14 +171,21 @@ function have_toc():boolean{
 
 	if(editor){
 		let document = editor.document
-
-		for(let i=0; i<document.lineCount; i++)
-			if(document.lineAt(i).text.includes("<!-- toc start -->") || document.lineAt(i).text.includes("<!-- toc end -->"))
-				counter += 1;
+		console.log(depth)
+		for(let i=0; i<document.lineCount; i++){
+			if(document?.lineAt(i).text.includes("<!-- toc start")){
+				depth = parseInt(document.lineAt(i).text.charAt(16))
+				console.log(depth)
+				counter++;
+			}
+			if(document?.lineAt(i).text.includes("<!-- toc end [do not erase this comment] -->"))	
+				counter++;
+		}
 	}
 
 	if(counter == 2)
 		return true
+		
 	return false
 }
 
