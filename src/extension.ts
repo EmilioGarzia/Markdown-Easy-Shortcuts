@@ -26,10 +26,9 @@ export function activate(context: vscode.ExtensionContext) {
 	let bold_cmd = vscode.commands.registerCommand('markdown-shortcuts.bold', textBold);				// Bold
 	let italic_cmd = vscode.commands.registerCommand('markdown-shortcuts.italic', textItalic);			// Italic
 	let toc_cmd = vscode.commands.registerCommand('markdown-shortcuts.toc', toc_maker)					// Table of content generator
-	let toc_updater_cmd = vscode.commands.registerCommand('markdown-shortcuts.delete_toc', toc_updater)	// Table of content eraser
+	let toc_updater_cmd = vscode.commands.registerCommand('markdown-shortcuts.update_toc', toc_updater)	// Table of content eraser
 
 	vscode.workspace.onDidChangeTextDocument(automatic_list_cmd);										// Automatic List 
-	vscode.workspace.onDidSaveTextDocument(toc_generator_on_save)
 
 	// Subscribe commands
 	context.subscriptions.push(bold_cmd);
@@ -64,12 +63,16 @@ async function toc_maker(){
 			toc_updater()
 	}
 
-	vscode.window.showInformationMessage("Table of contents has been created!")
 }
 
 function toc_generator_on_save(){
-	if(have_toc())
-		toc_updater()
+	if(have_toc()){
+		toc_updater().then(()=>{
+			let document = vscode.window.activeTextEditor?.document
+			document?.save().then(()=>{
+			})	
+		})
+	}
 }
 
 // Get range of the lines that contains table of contents
@@ -81,10 +84,12 @@ function toc_range(){
 		let document = editor.document
 		
 		for(let i=0; i<document.lineCount; i++){
-			if(document.lineAt(i).text.includes("<!-- toc start -->"))
+			if(document.lineAt(i).text.includes("<!-- toc start")){
 				range[0] = i
-			if(document.lineAt(i).text.includes("<!-- toc end -->"))
+			}
+			if(document.lineAt(i).text.includes("<!-- toc end [do not erase this comment] -->")){
 				range[1] = i
+			}
 		}
 	} 
 
@@ -100,8 +105,7 @@ async function toc_updater(){
 		editor.edit(editBuilder =>{
 			editBuilder.delete(new vscode.Range(new vscode.Position(range[0],0), new vscode.Position(range[1]+2, 0)))
 		}).then(()=>{
-			if(have_toc())
-				toc_generator()
+			toc_generator()
 		})
 	}
 }
@@ -121,6 +125,8 @@ function toc_generator(){
 			let header_content = document.lineAt(i)?.text?.slice(header?.length).trim();
 
 			if(header?.startsWith("#")){
+				console.log("h: " + header)
+				console.log("hc: " + header_content)
 				switch (header.length) {
 					case 1:	
 						toc += "- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
@@ -159,7 +165,8 @@ function toc_generator(){
 		}
 		editor.edit(editBuilder =>{
 			editBuilder.insert(new vscode.Position(0,0), start_marker + toc + end_marker + "\n\n")
-			console.log(toc)
+		}).then(()=>{
+			vscode.window.showInformationMessage("Table of contents has been created!")
 		});
 	}
 }
@@ -171,18 +178,16 @@ function have_toc():boolean{
 
 	if(editor){
 		let document = editor.document
-		console.log(depth)
 		for(let i=0; i<document.lineCount; i++){
 			if(document?.lineAt(i).text.includes("<!-- toc start")){
 				depth = parseInt(document.lineAt(i).text.charAt(16))
-				console.log(depth)
 				counter++;
 			}
-			if(document?.lineAt(i).text.includes("<!-- toc end [do not erase this comment] -->"))	
+			if(document?.lineAt(i).text.includes("<!-- toc end"))	
 				counter++;
 		}
 	}
-
+	console.log("counter: " + counter)
 	if(counter == 2)
 		return true
 		
@@ -265,7 +270,6 @@ function textBold(){
 	if(check_doc_extension(languages)){
 		const config = vscode.workspace.getConfiguration(); // Accesso alla configurazione globale
 		const editor = vscode.window.activeTextEditor;
-		config.update('adelio.giovanni', 2, true)
 
 			if (editor) {
 				// Get cursor selection
