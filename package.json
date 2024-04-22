@@ -79,7 +79,7 @@
       {
         "command": "markdown-shortcuts.marker_item",
         "key": "alt+x",
-        "mac": "option+x",
+        "mac": "alt+x",
         "when": "editorTextFocus"
       },
       {
