@@ -29,8 +29,8 @@
         ],
         "description": "README file template'"
     },
-    "code": {
-        "prefix": "code",
+    "mcode": {
+        "prefix": "mcode",
         "body": [
             "```",
             "",
@@ -55,6 +55,14 @@
             "- [ ] "
         ],
         "description": "Create a TODO list with three elements"
+    },
+    "right arrow":{
+        "prefix": "right_arrow",
+        "body": "&rarr;"
+    },
+    "left arrow":{
+        "prefix": "left_arrow",
+        "body": "&arr;"
     }
     
 }

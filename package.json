@@ -51,6 +51,10 @@
       {
         "command": "markdown-shortcuts.toc",
         "title": "Markdown Shortcuts: Table of contents"
+      },
+      {
+        "command": "markdown-shortcuts.delete_toc",
+        "title": "Markdown Shortcuts: Erase table of contents"
       }
     ],
     "snippets": [
