@@ -77,6 +77,12 @@
         "when": "editorTextFocus"
       },
       {
+        "command": "markdown-shortcuts.marker_item",
+        "key": "alt+x",
+        "mac": "option+x",
+        "when": "editorTextFocus"
+      },
+      {
         "command": "markdown-shortcuts.toc",
         "key": "ctrl+t",
         "mac": "cmd+t",

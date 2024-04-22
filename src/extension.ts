@@ -4,6 +4,8 @@ import * as vscode from 'vscode';
 import os from 'node:os'
 import { promisify } from 'util';
 import { count } from 'node:console';
+import { existsSync } from 'node:fs';
+import { constrainedMemory, listenerCount } from 'node:process';
 const setTimeoutPromise = promisify(setTimeout);
 
 // defines the languages where the commands can be execute
@@ -27,6 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let italic_cmd = vscode.commands.registerCommand('markdown-shortcuts.italic', textItalic);			// Italic
 	let toc_cmd = vscode.commands.registerCommand('markdown-shortcuts.toc', toc_maker)					// Table of content generator
 	let toc_updater_cmd = vscode.commands.registerCommand('markdown-shortcuts.update_toc', toc_updater)	// Table of content eraser
+	let marker_item_cmd = vscode.commands.registerCommand('markdown-shortcuts.marker_item', mark_item)	// Marker item into a todo list
 
 	vscode.workspace.onDidChangeTextDocument(automatic_list_cmd);										// Automatic List 
 
@@ -35,6 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(italic_cmd);
 	context.subscriptions.push(toc_cmd);
 	context.subscriptions.push(toc_updater_cmd);
+	context.subscriptions.push(marker_item_cmd);
 }
 
 
@@ -63,16 +67,6 @@ async function toc_maker(){
 			toc_updater()
 	}
 
-}
-
-function toc_generator_on_save(){
-	if(have_toc()){
-		toc_updater().then(()=>{
-			let document = vscode.window.activeTextEditor?.document
-			document?.save().then(()=>{
-			})	
-		})
-	}
 }
 
 // Get range of the lines that contains table of contents
@@ -125,8 +119,6 @@ function toc_generator(){
 			let header_content = document.lineAt(i)?.text?.slice(header?.length).trim();
 
 			if(header?.startsWith("#")){
-				console.log("h: " + header)
-				console.log("hc: " + header_content)
 				switch (header.length) {
 					case 1:	
 						toc += "- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
@@ -153,7 +145,6 @@ function toc_generator(){
 						break;
 					
 					case 6:
-						console.log("Case 6")
 						if(depth > 5)
 							toc += "\t\t\t\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
 						break;
@@ -187,11 +178,32 @@ function have_toc():boolean{
 				counter++;
 		}
 	}
-	console.log("counter: " + counter)
+
 	if(counter == 2)
 		return true
 		
 	return false
+}
+
+// mark an item into a todo list
+async function mark_item(){
+	let editor = vscode.window.activeTextEditor
+	
+	if(!editor)
+		return
+	
+	let selection = editor.selection.active
+	let document_line = editor.document.lineAt(selection.line).text
+
+	if(document_line.includes("- [x]") || document_line.includes("- [X]"))
+		editor.edit(editBuilder=>{
+			editBuilder.replace(new vscode.Range(new vscode.Position(selection.line, 2), new vscode.Position(selection.line, 5)), "[ ]")
+		})
+
+	if(document_line.includes("- [ ]"))
+		editor.edit(editBuilder=>{
+			editBuilder.replace(new vscode.Range(new vscode.Position(selection.line, 2), new vscode.Position(selection.line, 5)), "[x]")
+		})
 }
 
 // Automatic list 
@@ -211,12 +223,19 @@ function automatic_list_cmd (event: vscode.TextDocumentChangeEvent){
 				let first_char = previous_line.text.trim()[0]
 				let second_char = previous_line.text.trim()[1]
 				let third_char = previous_line.text.trim()[2]
+				let fifth_char = previous_line.text.trim()[4]
+				let sixth_char = previous_line.text.trim()[5]
+				let char_to_erase: number = 3
+
+				// check if we are in a todo list
+				if(first_char ===  '-'  && third_char === "[" && fifth_char === ']' && !sixth_char)
+					char_to_erase = 5
 
 				// Scenario 1: check if the user leaves the item list empty
-				if((first_char === '*' && !second_char || first_char === '-' && !second_char || (first_char === '1' && second_char === '.')) && !third_char ){
+				if((first_char === '*' && !second_char || first_char === '-' && !second_char || (first_char === '1' && second_char === '.')) && !third_char || first_char ===  '-'  && third_char === "[" && fifth_char === ']' && !sixth_char){
 					editor.edit(editBuilder => {
 						// delete item symbols
-						editBuilder.delete(new vscode.Range(new vscode.Position(previous_line.lineNumber,0), new vscode.Position(previous_line.lineNumber,3)));
+						editBuilder.delete(new vscode.Range(new vscode.Position(previous_line.lineNumber,0), new vscode.Position(previous_line.lineNumber,char_to_erase)));
 						
 						// move the cursor at the beginning of the previous line
 						editor.selection = new vscode.Selection(new vscode.Position(previous_line.lineNumber+1,0),new vscode.Position(previous_line.lineNumber+1,0))
@@ -227,6 +246,9 @@ function automatic_list_cmd (event: vscode.TextDocumentChangeEvent){
 				if(first_char === '*' && second_char === ' ' || first_char === "1"  &&  second_char === '.' && third_char === ' ' || first_char === '-' && second_char === ' '){
 					let next_line = document.lineAt(line+1)
 					let string_to_insert = first_char === '1' ? "1. " : first_char+' ' 
+
+					if(third_char === '[' && fifth_char === ']')
+						string_to_insert = "- [ ] "
 
 					editor.edit(editBuilder => {
 						editBuilder.insert(new vscode.Position(next_line.lineNumber,0), string_to_insert);

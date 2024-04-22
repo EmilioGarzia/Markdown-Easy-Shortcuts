@@ -50,8 +50,6 @@
     "todo": {
         "prefix": "todo",
         "body": [
-            "- [ ] ",
-            "- [ ] ",
             "- [ ] "
         ],
         "description": "Create a TODO list with three elements"
