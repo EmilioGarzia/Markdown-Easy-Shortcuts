@@ -3,6 +3,7 @@
   "displayName": "Markdown Shortcuts",
   "description": "Write easy markdown documents with shortcuts",
   "version": "0.0.1",
+  "icon": "./icons/icon.png",
   "engines": {
     "vscode": "^1.88.0"
   },
