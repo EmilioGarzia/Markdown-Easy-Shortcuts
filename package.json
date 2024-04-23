@@ -3,6 +3,10 @@
   "displayName": "Markdown Shortcuts",
   "description": "Write easy markdown documents with shortcuts",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EmilioGarzia/Markdown-Shortcuts"
+  },
   "icon": "./icons/icon.png",
   "engines": {
     "vscode": "^1.88.0"
