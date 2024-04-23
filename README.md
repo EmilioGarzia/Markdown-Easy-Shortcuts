@@ -32,7 +32,7 @@ With this extension, you can easily generate a *Table of Contents* and choose it
 
 ![shortcuts demo](images/bold_italic.gif)
 
-> ⚠️: If some shortcuts doesn't work, check the `Keyboard Shortcuts` in `Visual Studio Code` and check if there is any conflict for that key combination
+> ⚠️: If any shortcut doesn't work, check the `Keyboard Shortcuts` in `Visual Studio Code` and check if there is any conflict for that key combination
 
 ## Snippets 
 
