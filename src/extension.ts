@@ -2,11 +2,6 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import os from 'node:os'
-import { promisify } from 'util';
-import { count } from 'node:console';
-import { existsSync } from 'node:fs';
-import { constrainedMemory, listenerCount } from 'node:process';
-const setTimeoutPromise = promisify(setTimeout);
 
 // defines the languages where the commands can be execute
 const languages = ["markdown"];
@@ -95,10 +90,12 @@ async function toc_updater(){
 	let editor = vscode.window.activeTextEditor
 	let range = toc_range()
 
+	// Delete table contents...
 	if(editor && range[0] >= 0 && range[1] >= 0){
 		editor.edit(editBuilder =>{
 			editBuilder.delete(new vscode.Range(new vscode.Position(range[0],0), new vscode.Position(range[1]+2, 0)))
 		}).then(()=>{
+			//... and generate a new table of content
 			toc_generator()
 		})
 	}
@@ -113,6 +110,8 @@ function toc_generator(){
 	
 	if(editor){		
 		let document = editor.document
+
+		// scan all document to find header lines
 		for(let i=0; i<document.lineCount; i++){
 	
 			let header = document.lineAt(i).text.trim().split(' ')?.at(0); 
@@ -154,6 +153,8 @@ function toc_generator(){
 				}
 			}
 		}
+
+		// add headers to table contents
 		editor.edit(editBuilder =>{
 			editBuilder.insert(new vscode.Position(0,0), start_marker + toc + end_marker + "\n\n")
 		}).then(()=>{
@@ -192,14 +193,17 @@ async function mark_item(){
 	if(!editor)
 		return
 	
+	// get line of the cursor
 	let selection = editor.selection.active
 	let document_line = editor.document.lineAt(selection.line).text
 
+	// check todo item
 	if(document_line.includes("- [x]") || document_line.includes("- [X]"))
 		editor.edit(editBuilder=>{
 			editBuilder.replace(new vscode.Range(new vscode.Position(selection.line, 2), new vscode.Position(selection.line, 5)), "[ ]")
 		})
 
+	// uncheck todo item
 	if(document_line.includes("- [ ]"))
 		editor.edit(editBuilder=>{
 			editBuilder.replace(new vscode.Range(new vscode.Position(selection.line, 2), new vscode.Position(selection.line, 5)), "[x]")
@@ -321,37 +325,6 @@ function check_doc_extension(language: any[]){
 		return true;
 	return false
 }
-
-// Right arrow replacer
-function right_arrows_replacer(event: vscode.TextDocumentChangeEvent){ replacer("->", "&rarr;") } 
-
-// This function provide to replace a specified substring in a line editor with another substring
-function replacer(source: string, destination: string){
-	if(check_doc_extension(languages)){
-
-	let editor = vscode.window.activeTextEditor;
- 
-		if(editor){
-			let document = editor.document;
-			let text = document.getText()
-
-			if(text.includes(source)){
-				let newText = text.replace(source, destination)
-				let fullRange = new vscode.Range(document.positionAt(0), document.positionAt(text.length))
-				editor.edit(editBuilder =>{
-					editBuilder.replace(fullRange, newText);
-				});
-
-				// move cursor at the end of the word
-				let offset = (destination.length - source.length)+1
-				let current_position = editor.selection.active
-				editor.selection = new vscode.Selection(new vscode.Position(current_position.line, current_position.character+offset), new vscode.Position(current_position.line, current_position.character+offset))				
-
-			}
-		}
-	}
-}
-
 // This method is called when your extension is deactivated
 export function deactivate(context: vscode.ExtensionContext) {
 	vscode.window.showInformationMessage("'markdown-shortcuts' has been deactivated!");

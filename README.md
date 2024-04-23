@@ -1,16 +1,3 @@
-<!-- toc start: 3 [do not erase this comment] -->
-**Table of contents**
-- [Markdown Shortcuts](#markdown-shortcuts)
-	- [Commands](#commands)
-		- [Table of contents](#table-of-contents)
-		- [Shortcuts](#shortcuts)
-	- [Snippets](#snippets)
-	- [Automatic lists](#automatic-lists)
-	- [Release Notes](#release-notes)
-		- [1.0.0](#1.0.0)
-	- [Author](#author)
-<!-- toc end [do not erase this comment] -->
-
 # Markdown Shortcuts
 
 Easily write to markdown using snipett, shortcut and specific automations for markdown documents
@@ -53,13 +40,17 @@ Easily write to markdown using snipett, shortcut and specific automations for ma
 | `table` | *Insert a table with 3 columns and 3 rows* |
 | `todo` | *Start a todo list* |
 
-!!! . mettere gif di qualche snippet, tipo docs
+![snippet](images/snippet.gif)
 
 ## Automatic lists
 
-!!! . Mettere una gif che mostra l'automazione dell'andata a capo
+This extension implements an automation when you write lists into the markdown document.
 
-!!! . a fine capitolo fare una gif che mostra che se premi ALT+X si checkano le todo items
+![lists](images/list.gif)
+
+Also the todo lists are dinamically, and you can use a shortcut `ALT+X` to check/uncheck a todo item.
+
+![todo check](images/todo.gif)
 
 ## Release Notes
 

@@ -1,13 +1,12 @@
-- [ ]   * Togliere funzione replacer e metterla nel nostro markdown
-- [ ]   * Commentare le funzioni per la toc (solo fasi salienti)
+- [x]   * Togliere funzione replacer e metterla nel nostro markdown
+- [x]   * Commentare le funzioni per la toc (solo fasi salienti)
 - [x]   * Creare icona per la estensione
 
 ### README
-- [ ]   * Scrivere il README specificando:
+- [x]   * Scrivere il README specificando:
 - [x]       - Extension Name
 - [ ]       - Snippet
 - [x]       - Shortcut
 - [ ]       - Table of contents
 - [ ]       - Lists
 - [x]       - Author
-- [ ] Fare qualche screen e gif per il readme
