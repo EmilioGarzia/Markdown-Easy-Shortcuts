@@ -15,7 +15,7 @@ Easily write to markdown using snippet, shortcuts and specific automations for m
 
 With this extension, you can easily generate a *Table of Contents* and choose its depth with the keyboard combination `CTRL+T`, and every time you add a new section that should be inserted in the *Table of Contents* because of its depth corresponding to the desired one, pressing again the keyboard combination `CTRL+T` will update the *Table of Contents*
 
-![toc maker](images/toc_maker.gif)
+![toc maker](https://github.com/EmilioGarzia/Markdown-Shortcuts/blob/master/images/toc_maker.gif?raw=true)
 
 > ⚠️: With the creation of the *Table of Contents* some generated comments will be present in your file, **do not delete those comments**
 
@@ -30,7 +30,7 @@ With this extension, you can easily generate a *Table of Contents* and choose it
 | `ALT+X` | *Check/Uncheck todo item (if you have cursor on the line)* |
 | `CTRL+T` | *Create a table of contents* |
 
-![shortcuts demo](images/bold_italic.gif)
+![shortcuts demo](https://github.com/EmilioGarzia/Markdown-Shortcuts/blob/master/images/bold_italic.gif?raw=true)
 
 > ⚠️: If any shortcut doesn't work, check the `Keyboard Shortcuts` in `Visual Studio Code` and check if there is any conflict for that key combination
 
@@ -46,17 +46,17 @@ With this extension, you can easily generate a *Table of Contents* and choose it
 | `table` | *Insert a table with 3 columns and 3 rows* |
 | `todo` | *Starts a todo list* |
 
-![snippet](images/snippet.gif)
+![snippet](https://github.com/EmilioGarzia/Markdown-Shortcuts/blob/master/images/snippet.gif?raw=true)
 
 ## Automatic lists
 
 This extension implements an automation when you write lists into the markdown document.
 
-![lists](images/list.gif)
+![lists](https://github.com/EmilioGarzia/Markdown-Shortcuts/blob/master/images/list.gif?raw=true)
 
 Also the todo lists are dinamically, and you can use a shortcut `ALT+X` to check/uncheck a todo item.
 
-![todo check](images/todo.gif)
+![todo check](https://github.com/EmilioGarzia/Markdown-Shortcuts/blob/master/images/todo.gif?raw=true)
 
 ## Release Notes
 

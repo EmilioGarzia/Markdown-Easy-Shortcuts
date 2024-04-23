@@ -13,7 +13,8 @@
   },
   "categories": [
     "Other",
-    "Snippets"
+    "Snippets",
+    "Keymaps"
   ],
   "activationEvents": [
     "onLanguage:markdown"
