@@ -21,8 +21,6 @@ With this extension, you can easily generate a *Table of Contents* and choose it
 
 > ⚠️: If you want to change the depth of the generated *Table of Contents*, it is necessary to change the depth specified in the comment `<!-- toc start: (desired depth) [do not erase this comment] -->`
 
-
-
 ### Shortcuts 
 
 | Shortcut | Description |
@@ -31,6 +29,8 @@ With this extension, you can easily generate a *Table of Contents* and choose it
 | `CTRL+I` | *Italic text* |
 | `ALT+X` | *Check/Uncheck todo item (if you have cursor on the line)* |
 | `CTRL+T` | *Create a table of contents* |
+
+![shortcuts demo](images/bold_italic.gif)
 
 > ⚠️: If some shortcuts doesn't work, check the `Keyboard Shortcuts` in `Visual Studio Code` and check if there is any conflict for that key combination
 
