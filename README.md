@@ -13,9 +13,15 @@ Easily write to markdown using snippet, shortcuts and specific automations for m
 
 ### Table of contents
 
+With this extension, you can easily generate a *Table of Contents* and choose its depth with the keyboard combination `CTRL+T`, and every time you add a new section that should be inserted in the *Table of Contents* because of its depth corresponding to the desired one, pressing again the keyboard combination `CTRL+T` will update the *Table of Contents*
+
 !!! . Mettere una gif che mostra che se premi CTRL+T genera la TOC
 
-!!! . Specficare che nel commento si puo cambiare il numero di profondità
+> ⚠️: With the creation of the *Table of Contents* some generated comments will be present in your file, **do not delete those comments**
+
+> ⚠️: If you want to change the depth of the generated *Table of Contents*, it is necessary to change the depth specified in the comment `<!-- toc start: (desired depth) [do not erase this comment] -->`
+
+
 
 ### Shortcuts 
 
