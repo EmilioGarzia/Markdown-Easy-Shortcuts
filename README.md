@@ -1,6 +1,6 @@
 # Markdown Shortcuts
 
-Easily write to markdown using snipett, shortcut and specific automations for markdown documents
+Easily write to markdown using snippet, shortcuts and specific automations for markdown documents
 
 ## Commands
 
@@ -8,7 +8,7 @@ Easily write to markdown using snipett, shortcut and specific automations for ma
 |:-:|:-:|
 | `Markdown Shortcuts: Bold Text` | *Bold text* |
 | `Markdown Shortcuts: Italic Text` | *Italic text* |
-| `Markdown Shortcuts: Table of contents` | *Make table of contents* |
+| `Markdown Shortcuts: Table of contents` | *Create table of contents* |
 | `Markdown Shortcuts: Update table contents` | *Update table of contents* |
 
 ### Table of contents
@@ -24,21 +24,21 @@ Easily write to markdown using snipett, shortcut and specific automations for ma
 | `CTRL+B` | *Bold text* |
 | `CTRL+I` | *Italic text* |
 | `ALT+X` | *Check/Uncheck todo item (if you have cursor on the line)* |
-| `CTRL+T` | *Make a table of contents* |
+| `CTRL+T` | *Create a table of contents* |
 
-> ⚠️: If some shortcuts no work, check the `Keyboard Shortcuts` in `Visual Studio Code` and check if there are conflicts with other extensions for that shortcut
+> ⚠️: If some shortcuts doesn't work, check the `Keyboard Shortcuts` in `Visual Studio Code` and check if there is any conflict for that key combination
 
 ## Snippets 
 
 | Snippet | Description |
 |:-:|:-:|
 | `docs` | *Implements a structure for the documentation* |
-| `code` | *Insert grave accent for code (``)* |
-| `mcode` | *Insert grave accent for a multiline code* |
+| `code` | *Insert grave accent in order to write code(``)* |
+| `mcode` | *Insert grave accent to write multiline code* |
 | `right_arrow` | *Insert right arrow in **HTML code*** |
 | `left_arrow` | *Insert left arrow in **HTML code*** |
 | `table` | *Insert a table with 3 columns and 3 rows* |
-| `todo` | *Start a todo list* |
+| `todo` | *Starts a todo list* |
 
 ![snippet](images/snippet.gif)
 
