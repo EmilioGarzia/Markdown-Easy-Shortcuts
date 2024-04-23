@@ -1,74 +1,76 @@
-# markdown-shortcuts README
+<!-- toc start: 3 [do not erase this comment] -->
+**Table of contents**
+- [Markdown Shortcuts](#markdown-shortcuts)
+	- [Commands](#commands)
+		- [Table of contents](#table-of-contents)
+		- [Shortcuts](#shortcuts)
+	- [Snippets](#snippets)
+	- [Automatic lists](#automatic-lists)
+	- [Release Notes](#release-notes)
+		- [1.0.0](#1.0.0)
+	- [Author](#author)
+<!-- toc end [do not erase this comment] -->
 
-This is the README for your extension "markdown-shortcuts". After writing up a brief description, we recommend including the following sections.
+# Markdown Shortcuts
 
-## Features
+Easily write to markdown using snipett, shortcut and specific automations for markdown documents
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+## Commands
 
-For example if there is an image subfolder under your extension project workspace:
+| Command | Description |
+|:-:|:-:|
+| `Markdown Shortcuts: Bold Text` | *Bold text* |
+| `Markdown Shortcuts: Italic Text` | *Italic text* |
+| `Markdown Shortcuts: Table of contents` | *Make table of contents* |
+| `Markdown Shortcuts: Update table contents` | *Update table of contents* |
 
-\!\[feature X\]\(images/feature-x.png\)
+### Table of contents
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+!!! . Mettere una gif che mostra che se premi CTRL+T genera la TOC
 
-## Requirements
+!!! . Specficare che nel commento si puo cambiare il numero di profondità
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+### Shortcuts 
 
-## Extension Settings
+| Shortcut | Description |
+|:-:|:-:|
+| `CTRL+B` | *Bold text* |
+| `CTRL+I` | *Italic text* |
+| `ALT+X` | *Check/Uncheck todo item (if you have cursor on the line)* |
+| `CTRL+T` | *Make a table of contents* |
 
+> ⚠️: If some shortcuts no work, check the `Keyboard Shortcuts` in `Visual Studio Code` and check if there are conflicts with other extensions for that shortcut
 
+## Snippets 
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+| Snippet | Description |
+|:-:|:-:|
+| `docs` | *Implements a structure for the documentation* |
+| `code` | *Insert grave accent for code (``)* |
+| `mcode` | *Insert grave accent for a multiline code* |
+| `right_arrow` | *Insert right arrow in **HTML code*** |
+| `left_arrow` | *Insert left arrow in **HTML code*** |
+| `table` | *Insert a table with 3 columns and 3 rows* |
+| `todo` | *Start a todo list* |
 
-For example:
+!!! . mettere gif di qualche snippet, tipo docs
 
-This extension contributes the following settings:
+## Automatic lists
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+!!! . Mettere una gif che mostra l'automazione dell'andata a capo
 
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
+!!! . a fine capitolo fare una gif che mostra che se premi ALT+X si checkano le todo items
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+***Markdown-Shortcuts*** is an open source project and you can download it on [GitHub](https://github.com/EmilioGarzia/Markdown-Shortcuts)
 
 ### 1.0.0
 
+First relase of `Markdown Shortcuts`
 
-Initial release of ...
+## Author
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- 🧑‍💻 [*Emilio Garzia*](https://github.com/EmilioGarzia)
+- 🧑‍💻 [*Luigi Marino*](https://github.com/luigimarino01)
+- ☕ Offer us a virtual coffee on: [paypal](link.paypal)

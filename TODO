@@ -4,10 +4,10 @@
 
 ### README
 - [ ]   * Scrivere il README specificando:
-- [ ]       - Extension Name
+- [x]       - Extension Name
 - [ ]       - Snippet
-- [ ]       - Shortcut
+- [x]       - Shortcut
 - [ ]       - Table of contents
 - [ ]       - Lists
-- [ ]       - Author
+- [x]       - Author
 - [ ] Fare qualche screen e gif per il readme
