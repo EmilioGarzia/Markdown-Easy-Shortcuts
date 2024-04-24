@@ -70,4 +70,4 @@ First relase of `Markdown Shortcuts`
 
 - 🧑‍💻 [*Emilio Garzia*](https://github.com/EmilioGarzia)
 - 🧑‍💻 [*Luigi Marino*](https://github.com/luigimarino01)
-- ☕ Offer us a virtual coffee on: [paypal](link.paypal)
+- ☕ Offer us a virtual coffee on: [paypal](https://www.paypal.me/luigimarino2001?locale.x=it_IT)
