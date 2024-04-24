@@ -1,11 +1,13 @@
 {
-  "name": "markdown-shortcuts",
-  "displayName": "Markdown Shortcuts",
+  "name": "markdown-easy-shortcuts",
+  "displayName": "Markdown Easy Shortcuts",
   "description": "Write easy markdown documents with shortcuts",
-  "version": "1.0.0",
+  "version": "1.0.2",
+  "publisher": "EmilioGarziaLuigiMarino",
+  "readme": "https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts/blob/master/README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/EmilioGarzia/Markdown-Shortcuts"
+    "url": "https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts"
   },
   "icon": "./icons/icon.png",
   "engines": {
