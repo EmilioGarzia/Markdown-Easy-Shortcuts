@@ -116,36 +116,38 @@ function toc_generator(){
 	
 			let header = document.lineAt(i).text.trim().split(' ')?.at(0); 
 			let header_content = document.lineAt(i)?.text?.slice(header?.length).trim();
+			let reference_content = header_content.replaceAll(" ","-").replaceAll("'",'').toLowerCase()
+			reference_content = alpha_numeric_conversion(reference_content)
 
 			if(header?.startsWith("#")){
 				switch (header.length) {
 					case 1:	
-						toc += "- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+						toc += "- [" + header_content + "](#" + reference_content + ")\n"
 						break;
 					
 					case 2:
 						if(depth > 1)
-							toc += "\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+							toc += "\t- [" + header_content + "](#" + reference_content + ")\n"
 						break;
 					
 					case 3:
 						if(depth > 2)
-							toc += "\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+							toc += "\t\t- [" + header_content + "](#" + reference_content + ")\n"
 						break;
 					
 					case 4:
 						if(depth > 3)
-							toc += "\t\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+							toc += "\t\t\t- [" + header_content + "](#" + reference_content + ")\n"
 						break;
 
 					case 5:
 						if(depth > 4)
-							toc += "\t\t\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+							toc += "\t\t\t\t- [" + header_content + "](#" + reference_content + ")\n"
 						break;
 					
 					case 6:
 						if(depth > 5)
-							toc += "\t\t\t\t\t- [" + header_content + "](#" + header_content.replaceAll(" ","-").toLowerCase() + ")\n"
+							toc += "\t\t\t\t\t- [" + header_content + "](#" + reference_content + ")\n"
 						break;
 				
 					default:
@@ -184,6 +186,11 @@ function have_toc():boolean{
 		return true
 		
 	return false
+}
+
+// function that remove all no alpha numeric chars
+function alpha_numeric_conversion(string: string) {
+    return string.replace(/[^a-zA-ZÀ-ÖØ-öø-ÿ0-9' '-]/g, '');
 }
 
 // mark an item into a todo list
