@@ -38,14 +38,86 @@
         ],
         "description": "Insert your block of code"
     },
-    "table": {
-        "prefix": "table",
+    "table-1": {
+        "prefix": "table-1",
+        "body": [
+        "| Title 1 |",
+        "|:-:|",
+        "| item1 |"
+    ],
+    "description": "Create a table with 1 column"
+    },
+    "table-2": {
+        "prefix": "table-2",
+        "body": [
+        "| Title 1 | Title 2 |",
+        "|:-:|:-:|",
+        "| item1 | item2 |"
+    ],
+    "description": "Create a table with 2 columns"
+    },
+    "table-3": {
+        "prefix": "table-3",
         "body": [
         "| Title 1 | Title 2 | Title 3 |",
         "|:-:|:-:|:-:|",
         "| item1 | item2 | item3 |"
     ],
-    "description": "Create a basic table"
+    "description": "Create a table with 3 columns"
+    },
+    "table-4": {
+        "prefix": "table-4",
+        "body": [
+        "| Title 1 | Title 2 | Title 3 | Title 4 |",
+        "|:-:|:-:|:-:|:-:|",
+        "| item1 | item2 | item3 | item4 |"
+    ],
+    "description": "Create a table with 4 columns"
+    },
+    "table-5": {
+        "prefix": "table-5",
+        "body": [
+        "| Title 1 | Title 2 | Title 3 | Title 4 | Title 5 |",
+        "|:-:|:-:|:-:|:-:|:-:|",
+        "| item1 | item2 | item3 | item4 | item5 |"
+    ],
+    "description": "Create a table with 5 columns"
+    },
+    "table-6": {
+        "prefix": "table-6",
+        "body": [
+        "| Title 1 | Title 2 | Title 3 | Title 4 | Title 5 | Title 6 |",
+        "|:-:|:-:|:-:|:-:|:-:|:-:|",
+        "| item1 | item2 | item3 | item4 | item5 | item6 |"
+    ],
+    "description": "Create a table with 6 columns"
+    },
+    "table-7": {
+        "prefix": "table-7",
+        "body": [
+        "| Title 1 | Title 2 | Title 3 | Title 4 | Title 5 | Title 6 | Title 7 |",
+        "|:-:|:-:|:-:|:-:|:-:|:-:|:-:|",
+        "| item1 | item2 | item3 | item4 | item5 | item6 | item7 |"
+    ],
+    "description": "Create a table with 7 columns"
+    },
+    "table-8": {
+        "prefix": "table-8",
+        "body": [
+        "| Title 1 | Title 2 | Title 3 | Title 4 | Title 5 | Title 6 | Title 7 | Title 8 |",
+        "|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|",
+        "| item1 | item2 | item3 | item4 | item5 | item6 | item7 | item8 |"
+    ],
+    "description": "Create a table with 8 columns"
+    },
+    "table-9": {
+        "prefix": "table-9",
+        "body": [
+        "| Title 1 | Title 2 | Title 3 | Title 4 | Title 5 | Title 6 | Title 7 | Title 8 | Title 9 |",
+        "|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|",
+        "| item1 | item2 | item3 | item4 | item5 | item6 | item7 | item8 | item9 |"
+    ],
+    "description": "Create a table with 9 columns"
     },
     "todo": {
         "prefix": "todo",

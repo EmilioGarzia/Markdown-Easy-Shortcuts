@@ -2,16 +2,16 @@
 
 All notable changes to the "markdown-shortcuts" extension will be documented in this file.
 
-## [1.0.3] - `2024/04/30`
+## [1.0.3] - `2024/05/02`
 
 ### Fixed
 
 - Table of contents
-- Automatic list when itema are tabbed
+- Automatic list when items are tabbed
 
 ### Added
 
-- Snippets for many tables
+- Snippets for tables with different column size
 
 ## [1.0.2] - `2024/04/25`
 

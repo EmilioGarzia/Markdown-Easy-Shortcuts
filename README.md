@@ -60,11 +60,7 @@ Also the todo lists are dinamically, and you can use a shortcut `ALT+X` to check
 
 ## Release Notes
 
-***Markdown-Shortcuts*** is an open source project and you can download it on [GitHub](https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts)
-
-### 1.0.0
-
-First relase of `Markdown Shortcuts`
+***Markdown-Easy-Shortcuts*** is an open source project and you can download it on [GitHub](https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts)
 
 ## Author
 
