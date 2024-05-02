@@ -7,7 +7,6 @@ All notable changes to the "markdown-shortcuts" extension will be documented in 
 ### Fixed
 
 - Table of contents
-- Automatic list when items are tabbed
 
 ### Added
 
