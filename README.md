@@ -58,9 +58,11 @@ Also the todo lists are dinamically, and you can use a shortcut `ALT+X` to check
 
 ![todo check](https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts/blob/master/images/todo.gif?raw=true)
 
-## Release Notes
+## External links
 
-***Markdown-Easy-Shortcuts*** is an open source project and you can download it on [GitHub](https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts)
+[GitHub](https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts)
+
+[Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=EmilioGarziaLuigiMarino.markdown-easy-shortcuts)
 
 ## Author
 
