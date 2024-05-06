@@ -29,6 +29,7 @@ With this extension, you can easily generate a *Table of Contents* and choose it
 | `CTRL+I` | *Italic text* |
 | `ALT+X` | *Check/Uncheck todo item (if you have cursor on the line)* |
 | `CTRL+T` | *Create a table of contents* |
+| `CTRL+D` | *Copy the current line in a new line, or selected text in the current line* |
 
 ![shortcuts demo](https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts/blob/master/images/bold_italic.gif?raw=true)
 
@@ -43,7 +44,7 @@ With this extension, you can easily generate a *Table of Contents* and choose it
 | `mcode` | *Insert grave accent to write multiline code* |
 | `right_arrow` | *Insert right arrow in **HTML code*** |
 | `left_arrow` | *Insert left arrow in **HTML code*** |
-| `table` | *Insert a table with 3 columns and 3 rows* |
+| `table-n` | *Insert a table with n columns and 1 row* |
 | `todo` | *Starts a todo list* |
 
 ![snippet](https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts/blob/master/images/snippet.gif?raw=true)
