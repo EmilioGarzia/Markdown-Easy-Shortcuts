@@ -11,7 +11,7 @@ All notable changes to the "markdown-shortcuts" extension will be documented in 
 ### Changed
 
 - README with a new information
-- - 
+  
 ## [1.0.3] - `2024/05/02`
 
 ### Fixed
