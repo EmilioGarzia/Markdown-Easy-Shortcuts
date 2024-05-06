@@ -2,6 +2,8 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import os from 'node:os'
+import { setEngine } from 'node:crypto';
+import { start } from 'node:repl';
 
 // defines the languages where the commands can be execute
 const languages = ["markdown"];
@@ -25,6 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let toc_cmd = vscode.commands.registerCommand('markdown-shortcuts.toc', toc_maker)					// Table of content generator
 	let toc_updater_cmd = vscode.commands.registerCommand('markdown-shortcuts.update_toc', toc_updater)	// Table of content eraser
 	let marker_item_cmd = vscode.commands.registerCommand('markdown-shortcuts.marker_item', mark_item)	// Marker item into a todo list
+	let copy_line_cmd = vscode.commands.registerCommand('markdown-shortcuts.copy_line', copy_line)		// Copy current line in a new line
 
 	vscode.workspace.onDidChangeTextDocument(automatic_list_cmd);										// Automatic List 
 
@@ -34,8 +37,41 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(toc_cmd);
 	context.subscriptions.push(toc_updater_cmd);
 	context.subscriptions.push(marker_item_cmd);
+	context.subscriptions.push(copy_line_cmd);
 }
 
+// functio that copy line or selected text
+function copy_line(){
+	let editor = vscode.window.activeTextEditor
+
+	if(!editor)
+		return
+
+	let selected_line = editor.selection.active
+	let copied_txt = editor.document.lineAt(selected_line).text
+	let start_char = 0  					// check the start point of the added copy
+	let selection = editor.selection 		// contain the context relative to the selection
+
+	// copy the selected text in the current line
+	if(!selection.isEmpty){
+		let first_selected_char = selection.start.character
+		let last_selected_char = selection.end.character
+		start_char = last_selected_char
+		copied_txt = editor.document.getText(new vscode.Range(new vscode.Position(selected_line.line, first_selected_char),new vscode.Position(selected_line.line, last_selected_char)))
+	}else{
+		// copy in a new line if text is not selected
+		copied_txt = copied_txt + "\n"
+	}
+
+	// add the copied text
+	editor.edit(editBuilder =>{
+		editBuilder.insert(new vscode.Position(selected_line.line, start_char), copied_txt)
+	})
+
+	// if text was selected before the copy, re-select the same range
+	if(!selection.isEmpty)
+		editor.selection = new vscode.Selection(new vscode.Position(selected_line.line,selection.start.character), new vscode.Position(selected_line.line, selection.end.character))
+}
 
 // Table of content maker
 async function toc_maker(){
