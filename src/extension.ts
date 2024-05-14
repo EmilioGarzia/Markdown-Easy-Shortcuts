@@ -2,8 +2,6 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import os from 'node:os'
-import { setEngine } from 'node:crypto';
-import { start } from 'node:repl';
 
 // defines the languages where the commands can be execute
 const languages = ["markdown"];
@@ -75,29 +73,30 @@ function copy_line(){
 
 // Table of content maker
 async function toc_maker(){
-	let editor = vscode.window.activeTextEditor
-	
-	if(editor){
-		if(!have_toc()){
-			vscode.window.showInputBox({ prompt: 'Insert Table of contents depth [1-6]:' }).then(input => {
-				if (input) {
-					depth = parseInt(input)
-					if(isNaN(depth))
-						depth = 3
-					if(depth > 6 || depth < 1){
+	if(check_doc_extension(languages)){
+		let editor = vscode.window.activeTextEditor
+		
+		if(editor){
+			if(!have_toc()){
+				vscode.window.showInputBox({ prompt: 'Insert Table of contents depth [1-6]:' }).then(input => {
+					if (input) {
+						depth = parseInt(input)
+						if(isNaN(depth))
+							depth = 3
+						if(depth > 6 || depth < 1){
+							depth = 3
+							vscode.window.showWarningMessage('Input not valid.\nDefault depth: 3');
+						}
+					}else{
 						depth = 3
 						vscode.window.showWarningMessage('Input not valid.\nDefault depth: 3');
 					}
-				}else{
-					depth = 3
-					vscode.window.showWarningMessage('Input not valid.\nDefault depth: 3');
-				}
-				toc_generator();
-			});
-		}else
-			toc_updater()
+					toc_generator();
+				});
+			}else
+				toc_updater()
+		}
 	}
-
 }
 
 // Get range of the lines that contains table of contents
@@ -123,17 +122,19 @@ function toc_range(){
 
 // delete the table contents from the document [DA REVISIONARE]
 async function toc_updater(){
-	let editor = vscode.window.activeTextEditor
-	let range = toc_range()
+	if(check_doc_extension(languages)){
+		let editor = vscode.window.activeTextEditor
+		let range = toc_range()
 
-	// Delete table contents...
-	if(editor && range[0] >= 0 && range[1] >= 0){
-		editor.edit(editBuilder =>{
-			editBuilder.delete(new vscode.Range(new vscode.Position(range[0],0), new vscode.Position(range[1]+2, 0)))
-		}).then(()=>{
-			//... and generate a new table of content
-			toc_generator()
-		})
+		// Delete table contents...
+		if(editor && range[0] >= 0 && range[1] >= 0){
+			editor.edit(editBuilder =>{
+				editBuilder.delete(new vscode.Range(new vscode.Position(range[0],0), new vscode.Position(range[1]+2, 0)))
+			}).then(()=>{
+				//... and generate a new table of content
+				toc_generator()
+			})
+		}
 	}
 }
 

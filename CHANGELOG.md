@@ -2,6 +2,12 @@
 
 All notable changes to the "markdown-shortcuts" extension will be documented in this file.
 
+## [1.1.0] - `2024/05/14`
+
+### Fixed
+
+- Now `Table of contents` and `Update TOC` command work only on markdown documents
+
 ## [1.1.0] - `2024/05/06`
 
 ### Added
