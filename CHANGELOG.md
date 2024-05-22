@@ -2,7 +2,13 @@
 
 All notable changes to the "markdown-shortcuts" extension will be documented in this file.
 
-## [1.1.0] - `2024/05/14`
+## [1.1.2]
+
+### Fixed
+
+- Copy command now work with multiline selection
+
+## [1.1.1] - `2024/05/14`
 
 ### Fixed
 
