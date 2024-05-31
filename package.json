@@ -2,7 +2,7 @@
   "name": "markdown-easy-shortcuts",
   "displayName": "Markdown Easy Shortcuts",
   "description": "Write easy markdown documents with shortcuts",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "publisher": "EmilioGarziaLuigiMarino",
   "readme": "https://github.com/EmilioGarzia/Markdown-Easy-Shortcuts/blob/master/README.md",
   "repository": {
@@ -67,6 +67,10 @@
       {
         "command": "markdown-shortcuts.update_toc",
         "title": "Markdown Shortcuts: Update table of contents"
+      },
+      {
+        "command": "markdown-shortcuts.marker_item",
+        "title": "Markdown Shortcuts: Check/Uncheck todo items"
       }
     ],
     "snippets": [

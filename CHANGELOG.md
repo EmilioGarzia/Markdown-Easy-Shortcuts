@@ -2,7 +2,13 @@
 
 All notable changes to the "markdown-shortcuts" extension will be documented in this file.
 
-## [1.1.2]
+## [1.1.3]
+
+### Fixed
+
+- Manifest `package.json` to fix the check/uncheck todo items command
+
+## [1.1.2] - `2024/05/26`
 
 ### Fixed
 
